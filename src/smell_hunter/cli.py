@@ -92,50 +92,53 @@ def analyze(
         similarity_matrix=similarity_matrix,
     )
 
-    typer.echo("SmellHunter Report")
-    typer.echo("=========================")
-    typer.echo(f"Source: {source}")
-    typer.echo(f"max_files_per_commit={max_files_per_commit}")
-    typer.echo(f"min_cochange={min_cochange}")
-    typer.echo(f"distance_threshold={distance_threshold}")
-    typer.echo(f"extensions={','.join(extensions)}")
-    typer.echo(f"Analyzed commits: {len(commits)}")
-    typer.echo(f"Files in scope: {len(files)}")
+    typer.echo("🕵️ SmellHunter Report")
+    typer.echo("================================")
+    typer.echo("📊 Summary")
+    typer.echo(f"  Source: {source}")
+    typer.echo(f"  Commits analyzed: {len(commits)}")
+    typer.echo(f"  Files in scope: {len(files)}")
+    typer.echo("")
+    typer.echo("⚙️ Configuration")
+    typer.echo(f"  max_files_per_commit: {max_files_per_commit}")
+    typer.echo(f"  min_cochange: {min_cochange}")
+    typer.echo(f"  distance_threshold: {distance_threshold}")
+    typer.echo(f"  extensions: {','.join(extensions)}")
 
     typer.echo("")
-    typer.echo("Detected clusters:")
+    typer.echo("🧩 Detected clusters:")
     if not clusters:
-        typer.echo("(none)")
+        typer.echo("  (none)")
     else:
         for idx, cluster in enumerate(clusters, start=1):
             avg_similarity = _average_cluster_pair_value(cluster, similarity_matrix)
             avg_cochange = _average_cluster_pair_value(cluster, cochange_matrix)
             typer.echo("")
-            typer.echo(f"Cluster {idx}")
-            typer.echo("---------")
+            typer.echo(f"  Cluster {idx}")
+            typer.echo("  ---------")
             typer.echo(
-                f"size={len(cluster)} avg_similarity={avg_similarity:.3f} "
-                f"avg_cochange={avg_cochange:.2f}"
+                f"  size={len(cluster)} | avg_similarity={avg_similarity:.3f} "
+                f"| avg_cochange={avg_cochange:.2f}"
             )
             for file_index in cluster:
-                typer.echo(files[file_index])
+                typer.echo(f"   • {files[file_index]}")
 
-    _print_smell_section("CCP violations", smells["ccp"])
-    _print_smell_section("REP risks", smells["rep"])
-    _print_smell_section("CRP risks", smells["crp"])
+    _print_smell_section("🧱 CCP violations", smells["ccp"])
+    _print_smell_section("📦 REP risks", smells["rep"])
+    _print_smell_section("🪢 CRP risks", smells["crp"])
 
 
 def _print_smell_section(title: str, findings: list[dict[str, object]]) -> None:
     typer.echo("")
     typer.echo(f"{title}:")
     if not findings:
-        typer.echo("- none")
+        typer.echo("  ✅ none")
         return
 
     for finding in findings:
         cluster_id = finding["cluster_id"]
         message = finding["message"]
-        typer.echo(f"- Cluster {cluster_id}: {message}")
+        typer.echo(f"  ⚠️ Cluster {cluster_id}: {message}")
 
 
 def _print_error(message: str) -> int:
