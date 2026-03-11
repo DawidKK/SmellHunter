@@ -1,8 +1,16 @@
 """CLI entrypoints for architecture audit."""
 
+from __future__ import annotations
+
 from pathlib import Path
 
 import typer
+
+from .clustering import cluster_files
+from .cochange_matrix import build_cochange_matrix
+from .git_history import GitHistoryError, extract_commits, extract_commits_from_log_output
+from .similarity import compute_distance_matrix, compute_jaccard_similarity
+from .smell_detection import detect_smells
 
 app = typer.Typer(help="Analyze frontend architecture from Git commit history.")
 
@@ -32,13 +40,98 @@ def analyze(
         "--extensions",
         help="Allowed file extensions for analysis.",
     ),
+    distance_threshold: float = typer.Option(
+        0.7,
+        "--distance-threshold",
+        min=0.000001,
+        help="Agglomerative clustering distance threshold.",
+    ),
+    mock_log_file: Path | None = typer.Option(
+        None,
+        "--mock-log-file",
+        help=(
+            "Path to a text file containing mocked `git log --name-status -M --pretty=format:` "
+            "output for testing without real history."
+        ),
+    ),
 ) -> None:
-    """Run a placeholder architecture audit report."""
+    """Run end-to-end architecture audit analysis."""
+    try:
+        if mock_log_file is not None:
+            raw_output = mock_log_file.read_text(encoding="utf-8")
+            commits = extract_commits_from_log_output(
+                raw_output,
+                max_files_per_commit=max_files_per_commit,
+                extensions=extensions,
+            )
+            source = f"mock log file: {mock_log_file}"
+        else:
+            commits = extract_commits(
+                path,
+                max_files_per_commit=max_files_per_commit,
+                extensions=extensions,
+            )
+            source = f"git history from: {path}"
+    except FileNotFoundError as exc:
+        raise typer.BadParameter(f"Mock log file not found: {mock_log_file}") from exc
+    except GitHistoryError as exc:
+        raise typer.Exit(code=_print_error(str(exc)))
+
+    files, cochange_matrix, _graph = build_cochange_matrix(commits, min_cochange=min_cochange)
+    similarity_matrix = compute_jaccard_similarity(cochange_matrix)
+    distance_matrix = compute_distance_matrix(similarity_matrix)
+    clusters = cluster_files(
+        distance_matrix,
+        distance_threshold=distance_threshold,
+        file_names=files,
+    )
+    smells = detect_smells(
+        clusters=clusters,
+        files=files,
+        cochange_matrix=cochange_matrix,
+        similarity_matrix=similarity_matrix,
+    )
+
     typer.echo("Architecture Audit Report")
     typer.echo("=========================")
-    typer.echo(f"Target path: {path}")
+    typer.echo(f"Source: {source}")
     typer.echo(f"max_files_per_commit={max_files_per_commit}")
     typer.echo(f"min_cochange={min_cochange}")
+    typer.echo(f"distance_threshold={distance_threshold}")
     typer.echo(f"extensions={','.join(extensions)}")
+    typer.echo(f"Analyzed commits: {len(commits)}")
+    typer.echo(f"Files in scope: {len(files)}")
+
     typer.echo("")
-    typer.echo("MVP scaffold ready. Analysis pipeline will be implemented next.")
+    typer.echo("Detected clusters:")
+    if not clusters:
+        typer.echo("(none)")
+    else:
+        for idx, cluster in enumerate(clusters, start=1):
+            typer.echo("")
+            typer.echo(f"Cluster {idx}")
+            typer.echo("---------")
+            for file_index in cluster:
+                typer.echo(files[file_index])
+
+    _print_smell_section("CCP violations", smells["ccp"])
+    _print_smell_section("REP risks", smells["rep"])
+    _print_smell_section("CRP risks", smells["crp"])
+
+
+def _print_smell_section(title: str, findings: list[dict[str, object]]) -> None:
+    typer.echo("")
+    typer.echo(f"{title}:")
+    if not findings:
+        typer.echo("- none")
+        return
+
+    for finding in findings:
+        cluster_id = finding["cluster_id"]
+        message = finding["message"]
+        typer.echo(f"- Cluster {cluster_id}: {message}")
+
+
+def _print_error(message: str) -> int:
+    typer.echo(f"Error: {message}", err=True)
+    return 1

@@ -1,0 +1,119 @@
+M	frontend/CheckoutButton.tsx
+M	frontend/api/PaymentAPI.ts
+
+M	frontend/CheckoutForm.tsx
+M	frontend/CheckoutButton.tsx
+
+R100	frontend/legacy/CheckoutWidget.tsx	frontend/CheckoutWidget.tsx
+M	frontend/CheckoutForm.tsx
+
+M	frontend/CheckoutWidget.tsx
+M	frontend/api/PaymentAPI.ts
+M	frontend/CheckoutForm.test.ts
+M	frontend/dist/bundle.js
+
+M	frontend/CheckoutForm.tsx
+M	frontend/api/PaymentAPI.ts
+
+M	frontend/CheckoutButton.tsx
+M	frontend/api/PaymentAPI.ts
+
+M	frontend/CheckoutForm.tsx
+M	frontend/CheckoutButton.tsx
+
+R100	frontend/legacy/CheckoutWidget.tsx	frontend/CheckoutWidget.tsx
+M	frontend/CheckoutForm.tsx
+
+M	frontend/CheckoutWidget.tsx
+M	frontend/api/PaymentAPI.ts
+M	frontend/CheckoutForm.test.ts
+M	frontend/dist/bundle.js
+
+M	frontend/CheckoutForm.tsx
+M	frontend/api/PaymentAPI.ts
+
+M	frontend/CheckoutButton.tsx
+M	frontend/api/PaymentAPI.ts
+
+M	frontend/CheckoutForm.tsx
+M	frontend/CheckoutButton.tsx
+
+R100	frontend/legacy/CheckoutWidget.tsx	frontend/CheckoutWidget.tsx
+M	frontend/CheckoutForm.tsx
+
+M	frontend/CheckoutWidget.tsx
+M	frontend/api/PaymentAPI.ts
+M	frontend/CheckoutForm.test.ts
+M	frontend/dist/bundle.js
+
+M	frontend/CheckoutForm.tsx
+M	frontend/api/PaymentAPI.ts
+
+M	frontend/CheckoutButton.tsx
+M	frontend/api/PaymentAPI.ts
+
+M	frontend/CheckoutForm.tsx
+M	frontend/CheckoutButton.tsx
+
+R100	frontend/legacy/CheckoutWidget.tsx	frontend/CheckoutWidget.tsx
+M	frontend/CheckoutForm.tsx
+
+M	frontend/CheckoutWidget.tsx
+M	frontend/api/PaymentAPI.ts
+M	frontend/CheckoutForm.test.ts
+M	frontend/dist/bundle.js
+
+M	frontend/CheckoutForm.tsx
+M	frontend/api/PaymentAPI.ts
+
+M	frontend/CheckoutButton.tsx
+M	frontend/api/PaymentAPI.ts
+
+M	frontend/CheckoutForm.tsx
+M	frontend/CheckoutButton.tsx
+
+R100	frontend/legacy/CheckoutWidget.tsx	frontend/CheckoutWidget.tsx
+M	frontend/CheckoutForm.tsx
+
+M	frontend/CheckoutWidget.tsx
+M	frontend/api/PaymentAPI.ts
+M	frontend/CheckoutForm.test.ts
+M	frontend/dist/bundle.js
+
+M	frontend/CheckoutForm.tsx
+M	frontend/api/PaymentAPI.ts
+
+M	frontend/CheckoutButton.tsx
+M	frontend/api/PaymentAPI.ts
+
+M	frontend/CheckoutForm.tsx
+M	frontend/CheckoutButton.tsx
+
+R100	frontend/legacy/CheckoutWidget.tsx	frontend/CheckoutWidget.tsx
+M	frontend/CheckoutForm.tsx
+
+M	frontend/CheckoutWidget.tsx
+M	frontend/api/PaymentAPI.ts
+M	frontend/CheckoutForm.test.ts
+M	frontend/dist/bundle.js
+
+M	frontend/CheckoutForm.tsx
+M	frontend/api/PaymentAPI.ts
+
+M	frontend/CheckoutButton.tsx
+M	frontend/api/PaymentAPI.ts
+
+M	frontend/CheckoutForm.tsx
+M	frontend/CheckoutButton.tsx
+
+R100	frontend/legacy/CheckoutWidget.tsx	frontend/CheckoutWidget.tsx
+M	frontend/CheckoutForm.tsx
+
+M	frontend/CheckoutWidget.tsx
+M	frontend/api/PaymentAPI.ts
+M	frontend/CheckoutForm.test.ts
+M	frontend/dist/bundle.js
+
+M	frontend/CheckoutForm.tsx
+M	frontend/api/PaymentAPI.ts
+
