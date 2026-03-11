@@ -1,6 +1,6 @@
 """Local runner for the CLI application."""
 
-from arch_audit.cli import app
+from smell_hunter.cli import app
 
 
 if __name__ == "__main__":

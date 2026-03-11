@@ -17,7 +17,7 @@ The tool must run from the **command line** and operate on an existing Git repos
 Example usage:
 
 ```
-arch-audit analyze ./src
+smell-hunter analyze ./src
 ```
 
 Output should include:
@@ -350,7 +350,7 @@ The CLI must allow **scoping analysis to a directory**.
 Example:
 
 ```
-arch-audit analyze ./frontend
+smell-hunter analyze ./frontend
 ```
 
 ---
@@ -404,7 +404,7 @@ The application must expose a CLI.
 Suggested command:
 
 ```
-arch-audit analyze <path>
+smell-hunter analyze <path>
 ```
 
 Optional flags:
@@ -441,7 +441,7 @@ uv add gitpython
 # Recommended Project Structure
 
 ```
-arch_audit/
+smell_hunter/
     __init__.py
 
     cli.py

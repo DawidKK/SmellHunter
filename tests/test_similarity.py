@@ -1,6 +1,6 @@
 import numpy as np
 
-from arch_audit.similarity import compute_distance_matrix, compute_jaccard_similarity
+from smell_hunter.similarity import compute_distance_matrix, compute_jaccard_similarity
 
 
 def test_compute_jaccard_similarity_from_cochange_matrix() -> None:

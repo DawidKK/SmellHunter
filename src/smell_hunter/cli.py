@@ -17,7 +17,7 @@ app = typer.Typer(help="Analyze frontend architecture from Git commit history.")
 
 @app.callback()
 def main() -> None:
-    """arch-audit command group."""
+    """smell-hunter command group."""
 
 
 @app.command()
@@ -41,7 +41,7 @@ def analyze(
         help="Allowed file extensions for analysis.",
     ),
     distance_threshold: float = typer.Option(
-        0.7,
+        0.85,
         "--distance-threshold",
         min=0.000001,
         help="Agglomerative clustering distance threshold.",
@@ -92,7 +92,7 @@ def analyze(
         similarity_matrix=similarity_matrix,
     )
 
-    typer.echo("Architecture Audit Report")
+    typer.echo("SmellHunter Report")
     typer.echo("=========================")
     typer.echo(f"Source: {source}")
     typer.echo(f"max_files_per_commit={max_files_per_commit}")
@@ -108,9 +108,15 @@ def analyze(
         typer.echo("(none)")
     else:
         for idx, cluster in enumerate(clusters, start=1):
+            avg_similarity = _average_cluster_pair_value(cluster, similarity_matrix)
+            avg_cochange = _average_cluster_pair_value(cluster, cochange_matrix)
             typer.echo("")
             typer.echo(f"Cluster {idx}")
             typer.echo("---------")
+            typer.echo(
+                f"size={len(cluster)} avg_similarity={avg_similarity:.3f} "
+                f"avg_cochange={avg_cochange:.2f}"
+            )
             for file_index in cluster:
                 typer.echo(files[file_index])
 
@@ -135,3 +141,13 @@ def _print_smell_section(title: str, findings: list[dict[str, object]]) -> None:
 def _print_error(message: str) -> int:
     typer.echo(f"Error: {message}", err=True)
     return 1
+
+
+def _average_cluster_pair_value(cluster: list[int], matrix) -> float:
+    if len(cluster) < 2:
+        return 0.0
+    values: list[float] = []
+    for i in range(len(cluster)):
+        for j in range(i + 1, len(cluster)):
+            values.append(float(matrix[cluster[i], cluster[j]]))
+    return sum(values) / len(values) if values else 0.0

@@ -1,5 +1,5 @@
 [project]
-name = "arch-audit"
+name = "smell-hunter"
 version = "0.1.0"
 description = "CLI tool for analyzing frontend architecture from Git history"
 requires-python = ">=3.11"
@@ -12,7 +12,7 @@ dependencies = [
 ]
 
 [project.scripts]
-arch-audit = "arch_audit.cli:app"
+smell-hunter = "smell_hunter.cli:app"
 
 [build-system]
 requires = ["hatchling"]

@@ -1,6 +1,6 @@
 import numpy as np
 
-from arch_audit.smell_detection import detect_smells
+from smell_hunter.smell_detection import detect_smells
 
 
 def test_detect_smells_flags_ccp_rep_and_crp() -> None:

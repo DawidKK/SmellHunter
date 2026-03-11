@@ -3,7 +3,7 @@ import subprocess
 
 import pytest
 
-from arch_audit.git_history import extract_commits
+from smell_hunter.git_history import extract_commits
 
 
 def _git(repo: Path, *args: str) -> None:

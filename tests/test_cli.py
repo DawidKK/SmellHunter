@@ -3,7 +3,7 @@ from pathlib import Path
 import pytest
 from typer.testing import CliRunner
 
-from arch_audit.cli import app
+from smell_hunter.cli import app
 
 
 runner = CliRunner()
@@ -63,7 +63,7 @@ def test_analyze_with_mock_log_file_prints_clusters_and_smells(tmp_path: Path) -
     )
 
     assert result.exit_code == 0
-    assert "Architecture Audit Report" in result.stdout
+    assert "SmellHunter Report" in result.stdout
     assert "Detected clusters:" in result.stdout
     assert "Cluster 1" in result.stdout
     assert "CCP violations:" in result.stdout

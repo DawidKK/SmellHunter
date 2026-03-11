@@ -1,4 +1,4 @@
-from arch_audit.commit_parser import parse_commit_blocks
+from smell_hunter.commit_parser import parse_commit_blocks
 
 
 def test_parse_commit_blocks_handles_renames_and_filters() -> None:

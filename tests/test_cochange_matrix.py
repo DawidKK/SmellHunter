@@ -1,6 +1,6 @@
 import numpy as np
 
-from arch_audit.cochange_matrix import build_cochange_matrix
+from smell_hunter.cochange_matrix import build_cochange_matrix
 
 
 def test_build_cochange_matrix_counts_and_graph_edges() -> None:

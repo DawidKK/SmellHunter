@@ -1,6 +1,6 @@
 import numpy as np
 
-from arch_audit.clustering import cluster_files
+from smell_hunter.clustering import cluster_files
 
 
 def test_cluster_files_handles_edge_cases() -> None:
